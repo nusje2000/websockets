@@ -1,0 +1,7 @@
+HTTP/1.1 101 Web Socket Protocol Handshake
+Upgrade: websocket
+Connection: Upgrade
+WebSocket-Origin: 127.0.0.1
+WebSocket-Location: ws://127.0.0.1:1337
+Sec-WebSocket-Accept: ABIzQsm0pCcW1mP8u0tkuPZ7tV8=
+
