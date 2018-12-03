@@ -7,6 +7,7 @@ namespace Nusje2000\Socket\EventSubscriber;
 use Nusje2000\Socket\Event\FrameEvent;
 use Nusje2000\Socket\Event\MessageEvent;
 use Nusje2000\Socket\Event\SocketEventInterface;
+use Nusje2000\Socket\Frame\OpcodeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -55,7 +56,7 @@ final class FrameEventSubscriber implements EventSubscriberInterface
         $connection = $event->getConnection();
         $frame = $event->getFrame();
 
-        if (!$frame->isFinal() || $frame->isControl()) {
+        if ($frame->getOpcode() !== OpcodeEnum::TEXT) {
             return;
         }
 

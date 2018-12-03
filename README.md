@@ -81,7 +81,7 @@ can be listened to:
 | socket.connect         | ConnectionEvent | new connection (handshake is already done when this event is triggered)                                                                       |
 | socket.disconnect      | ConnectionEvent | disconnected (triggered when a connection is disconned)                                                                                       |
 | socket.frame.receive   | FrameEvent      | received frame (triggered when a frame is received)                                                                                           |
-| socket.message.receive | MessageEvent    | received message (only works when the FrameEventSubscriber is an active listener, triggered when a frame is received with non-control opcode) |
+| socket.message.receive | MessageEvent    | received message (only works when the FrameEventSubscriber is an active listener, triggered when a frame is received with TEXT opcode)        |
 
 __All event names are available as a constant on the WebSocketEventInterface__
 
