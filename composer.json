@@ -2,6 +2,7 @@
     "name": "nusje2000/websockets",
     "description": "Websockets",
     "type": "library",
+    "license": "MIT",
     "require": {
         "react/socket": "^1.1",
         "symfony/event-dispatcher": "^4.1",
