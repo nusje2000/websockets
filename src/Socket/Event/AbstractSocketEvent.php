@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Event;
+namespace Nusje2000\Socket\Event;
 
-use App\Socket\WebSocketInterface;
+use Nusje2000\Socket\WebSocketInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class AbstractSocketEvent
  *
- * @package App\Socket\Event
+ * @package Nusje2000\Socket\Event
  */
 abstract class AbstractSocketEvent extends Event implements SocketEventInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Socket\Frame;
+namespace Tests\Nusje2000\Socket\Frame;
 
-use App\Socket\Frame\OpcodeEnum;
+use Nusje2000\Socket\Frame\OpcodeEnum;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;

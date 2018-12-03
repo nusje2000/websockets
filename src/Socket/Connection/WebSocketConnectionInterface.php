@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Connection;
+namespace Nusje2000\Socket\Connection;
 
-use App\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\Frame\FrameInterface;
 use Evenement\EventEmitterInterface;
 
 /**
  * Interface WebSocketConnectionInterface
  *
- * @package App\Socket\Connection
+ * @package Nusje2000\Socket\Connection
  */
 interface WebSocketConnectionInterface extends EventEmitterInterface
 {

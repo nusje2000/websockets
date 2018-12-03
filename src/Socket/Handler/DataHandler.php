@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Handler;
+namespace Nusje2000\Socket\Handler;
 
-use App\Socket\Frame\Encoder;
-use App\Socket\Frame\FrameFactory;
-use App\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\Frame\Encoder;
+use Nusje2000\Socket\Frame\FrameFactory;
+use Nusje2000\Socket\Frame\FrameInterface;
 use RuntimeException;
 
 /**
  * Class DataHandler
  *
- * @package App\Socket\Handler
+ * @package Nusje2000\Socket\Handler
  */
 final class DataHandler implements DataHandlerInterface
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Event;
+namespace Nusje2000\Socket\Event;
 
-use App\Socket\Connection\WebSocketConnectionInterface;
-use App\Socket\Frame\FrameInterface;
-use App\Socket\WebSocketInterface;
+use Nusje2000\Socket\Connection\WebSocketConnectionInterface;
+use Nusje2000\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\WebSocketInterface;
 
 /**
  * Class MessageEvent
  *
- * @package App\Socket\Event
+ * @package Nusje2000\Socket\Event
  */
 final class MessageEvent extends AbstractSocketEvent
 {

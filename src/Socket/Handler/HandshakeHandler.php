@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Handler;
+namespace Nusje2000\Socket\Handler;
 
-use App\Socket\Handshake\HandshakeFactory;
-use App\Socket\Logger\LoggerInterface;
-use App\Socket\Logger\NullLogger;
-use App\Socket\WebSocketInterface;
+use Nusje2000\Socket\Handshake\HandshakeFactory;
+use Nusje2000\Socket\Logger\LoggerInterface;
+use Nusje2000\Socket\Logger\NullLogger;
+use Nusje2000\Socket\WebSocketInterface;
 use React\Socket\ConnectionInterface;
 use RuntimeException;
 
 /**
  * Class HandshakeHandler
  *
- * @package App\Socket\Handler
+ * @package Nusje2000\Socket\Handler
  */
 final class HandshakeHandler implements HandshakeHandlerInterface
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Connection;
+namespace Nusje2000\Socket\Connection;
 
-use App\Socket\Frame\FrameInterface;
-use App\Socket\Handler\DataHandler;
-use App\Socket\Handler\DataHandlerInterface;
+use Nusje2000\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\Handler\DataHandler;
+use Nusje2000\Socket\Handler\DataHandlerInterface;
 use Evenement\EventEmitter;
 use InvalidArgumentException;
 use React\Socket\ConnectionInterface;
@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * Class WebSocketConnection
  *
- * @package App\Socket\Connection
+ * @package Nusje2000\Socket\Connection
  */
 final class WebSocketConnection extends EventEmitter implements WebSocketConnectionInterface
 {

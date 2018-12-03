@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Connection;
+namespace Nusje2000\Socket\Connection;
 
 use SplObjectStorage;
 
 /**
  * Class ConnectionStorage
  *
- * @package App\Socket\Connection
+ * @package Nusje2000\Socket\Connection
  */
 final class ConnectionStorage
 {

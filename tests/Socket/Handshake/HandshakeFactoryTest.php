@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Socket\Handshake;
+namespace Tests\Nusje2000\Socket\Handshake;
 
-use App\Socket\Handshake\HandshakeFactory;
+use Nusje2000\Socket\Handshake\HandshakeFactory;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -13,7 +13,7 @@ use SebastianBergmann\RecursionContext\InvalidArgumentException;
 /**
  * Class HandshakeFactoryTest
  *
- * @package Tests\App\Socket\Handshake
+ * @package Tests\Nusje2000\Socket\Handshake
  */
 class HandshakeFactoryTest extends TestCase
 {

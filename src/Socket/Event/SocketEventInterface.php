@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Event;
+namespace Nusje2000\Socket\Event;
 
-use App\Socket\WebSocket;
-use App\Socket\WebSocketInterface;
+use Nusje2000\Socket\WebSocket;
+use Nusje2000\Socket\WebSocketInterface;
 
 /**
  * Interface SocketEventInterface
  *
- * @package App\Socket\Event
+ * @package Nusje2000\Socket\Event
  */
 interface SocketEventInterface
 {

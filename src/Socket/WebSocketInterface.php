@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Socket;
+namespace Nusje2000\Socket;
 
-use App\Socket\Connection\ConnectionStorage;
+use Nusje2000\Socket\Connection\ConnectionStorage;
 use React\EventLoop\LoopInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Interface WebSocketInterface
  *
- * @package App\Socket
+ * @package Nusje2000\Socket
  */
 interface WebSocketInterface
 {

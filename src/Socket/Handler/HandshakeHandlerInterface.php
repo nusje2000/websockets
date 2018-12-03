@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Handler;
+namespace Nusje2000\Socket\Handler;
 
-use App\Socket\WebSocketInterface;
+use Nusje2000\Socket\WebSocketInterface;
 use React\Socket\ConnectionInterface;
 
 /**
  * Interface HandshakeHandlerInterface
  *
- * @package App\Socket\Handler
+ * @package Nusje2000\Socket\Handler
  */
 interface HandshakeHandlerInterface
 {

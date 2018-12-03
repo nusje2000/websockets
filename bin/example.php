@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Socket\Event\MessageEvent;
-use App\Socket\Event\SocketEventInterface;
-use App\Socket\EventSubscriber\FrameEventSubscriber;
-use App\Socket\Frame\FrameFactory;
-use App\Socket\Frame\OpcodeEnum;
-use App\Socket\Logger\ConsoleLogger;
-use App\Socket\WebSocket;
+use Nusje2000\Socket\Event\MessageEvent;
+use Nusje2000\Socket\Event\SocketEventInterface;
+use Nusje2000\Socket\EventSubscriber\FrameEventSubscriber;
+use Nusje2000\Socket\Frame\FrameFactory;
+use Nusje2000\Socket\Frame\OpcodeEnum;
+use Nusje2000\Socket\Logger\ConsoleLogger;
+use Nusje2000\Socket\WebSocket;
 use React\EventLoop\Factory as LoopFactory;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

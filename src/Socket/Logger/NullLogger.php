@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Logger;
+namespace Nusje2000\Socket\Logger;
 
 /**
  * Class NullLogger
  *
- * @package App\Socket\Logger
+ * @package Nusje2000\Socket\Logger
  */
 final class NullLogger implements LoggerInterface
 {

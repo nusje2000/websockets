@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Frame;
+namespace Nusje2000\Socket\Frame;
 
 /**
  * Interface FrameInterface
  *
- * @package App\Socket\Frame
+ * @package Nusje2000\Socket\Frame
  */
 interface FrameInterface
 {

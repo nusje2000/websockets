@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Logger;
+namespace Nusje2000\Socket\Logger;
 
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 /**
  * Class ConsoleLogger
  *
- * @package App\Socket\Logger
+ * @package Nusje2000\Socket\Logger
  */
 class ConsoleLogger implements LoggerInterface
 {

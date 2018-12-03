@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Socket;
+namespace Nusje2000\Socket;
 
-use App\Socket\Connection\ConnectionStorage;
-use App\Socket\Connection\WebSocketConnection;
-use App\Socket\Connection\WebSocketConnectionInterface;
-use App\Socket\Event\ConnectionEvent;
-use App\Socket\Event\FrameEvent;
-use App\Socket\Event\SocketEventInterface;
-use App\Socket\Frame\Encoder;
-use App\Socket\Frame\FrameFactory;
-use App\Socket\Frame\FrameInterface;
-use App\Socket\Handler\DataHandler;
-use App\Socket\Handler\DataHandlerInterface;
-use App\Socket\Handler\HandshakeHandler;
-use App\Socket\Handler\HandshakeHandlerInterface;
-use App\Socket\Handshake\HandshakeFactory;
-use App\Socket\Logger\ConsoleLogger;
+use Nusje2000\Socket\Connection\ConnectionStorage;
+use Nusje2000\Socket\Connection\WebSocketConnection;
+use Nusje2000\Socket\Connection\WebSocketConnectionInterface;
+use Nusje2000\Socket\Event\ConnectionEvent;
+use Nusje2000\Socket\Event\FrameEvent;
+use Nusje2000\Socket\Event\SocketEventInterface;
+use Nusje2000\Socket\Frame\Encoder;
+use Nusje2000\Socket\Frame\FrameFactory;
+use Nusje2000\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\Handler\DataHandler;
+use Nusje2000\Socket\Handler\DataHandlerInterface;
+use Nusje2000\Socket\Handler\HandshakeHandler;
+use Nusje2000\Socket\Handler\HandshakeHandlerInterface;
+use Nusje2000\Socket\Handshake\HandshakeFactory;
+use Nusje2000\Socket\Logger\ConsoleLogger;
 use InvalidArgumentException;
 use React\EventLoop\LoopInterface;
 use React\Socket\ConnectionInterface;
@@ -28,7 +28,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Class WebSocket
  *
- * @package App\Socket
+ * @package Nusje2000\Socket
  */
 class WebSocket implements WebSocketInterface
 {

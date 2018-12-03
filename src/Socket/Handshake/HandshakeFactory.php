@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Handshake;
+namespace Nusje2000\Socket\Handshake;
 
 use RuntimeException;
 
 /**
  * Class HandshakeFactory
  *
- * @package App\Socket\Handshake
+ * @package Nusje2000\Socket\Handshake
  */
 final class HandshakeFactory
 {

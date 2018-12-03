@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\EventSubscriber;
+namespace Nusje2000\Socket\EventSubscriber;
 
-use App\Socket\Event\FrameEvent;
-use App\Socket\Event\MessageEvent;
-use App\Socket\Event\SocketEventInterface;
+use Nusje2000\Socket\Event\FrameEvent;
+use Nusje2000\Socket\Event\MessageEvent;
+use Nusje2000\Socket\Event\SocketEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Class FrameEventSubscriber
  *
- * @package App\Socket\EventSubscriber
+ * @package Nusje2000\Socket\EventSubscriber
  */
 final class FrameEventSubscriber implements EventSubscriberInterface
 {

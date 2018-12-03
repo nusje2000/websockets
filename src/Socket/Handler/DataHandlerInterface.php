@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Socket\Handler;
+namespace Nusje2000\Socket\Handler;
 
-use App\Socket\Frame\FrameInterface;
+use Nusje2000\Socket\Frame\FrameInterface;
 
 /**
  * Class DataHandlerInterface
  *
- * @package App\Socket\Handler
+ * @package Nusje2000\Socket\Handler
  */
 interface DataHandlerInterface
 {
