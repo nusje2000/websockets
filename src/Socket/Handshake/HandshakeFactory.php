@@ -40,9 +40,6 @@ final class HandshakeFactory
     }
 
     /**
-     * @param string $request
-     *
-     * @return string
      * @throws RuntimeException
      */
     private function getAcceptanceKeyFromRequest(string $request): string
@@ -57,9 +54,7 @@ final class HandshakeFactory
     }
 
     /**
-     * @param array $lines
-     *
-     * @return string
+     * @param string[] $lines
      */
     private function createHttpResponse(array $lines): string
     {

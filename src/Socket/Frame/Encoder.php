@@ -31,7 +31,7 @@ final class Encoder
             throw new RuntimeException('Masking is not supported for server to client messages.');
         }
 
-        $firstByte = ($final ? 0x80 : 0) | $opcode;
+        $firstByte = ($final ? 0x80 : 0) | $opcode->getValue();
         $header = null;
 
         if ($payloadLenth <= 125) {
@@ -46,6 +46,6 @@ final class Encoder
             $header = pack('CCP', $firstByte, 127, $payloadLenth);
         }
 
-        return $header.$payload;
+        return $header . $payload;
     }
 }

@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Nusje2000\Socket\Frame;
 
-/**
- * Class OpcodeEnum
- *
- * @package Nusje2000\Socket\Frame
- */
-final class OpcodeEnum
+use MyCLabs\Enum\Enum;
+
+final class OpcodeEnum extends Enum
 {
     public CONST CONTINUE = 0x0;
     public CONST TEXT = 0x1;
@@ -46,14 +43,9 @@ final class OpcodeEnum
         ];
     }
 
-    /**
-     * @param int $opcode
-     *
-     * @return bool
-     */
-    public static function isControlCode(int $opcode): bool
+    public function isControlCode(): bool
     {
-        return in_array($opcode, self::getControlCodes(), true);
+        return in_array($this->getValue(), self::getControlCodes(), true);
     }
 
     /**
@@ -72,23 +64,8 @@ final class OpcodeEnum
         ];
     }
 
-    /**
-     * @param int $opcode
-     *
-     * @return bool
-     */
-    public static function isNonControlCode(int $opcode): bool
+    public function isNonControlCode(): bool
     {
-        return in_array($opcode, self::getNonControlCodes(), true);
-    }
-
-    /**
-     * @param int $opcode
-     *
-     * @return bool
-     */
-    public static function isValid(int $opcode): bool
-    {
-        return $opcode >= self::CONTINUE && $opcode <= self::OPCODE_15;
+        return in_array($this->getValue(), self::getNonControlCodes(), true);
     }
 }

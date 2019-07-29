@@ -12,7 +12,7 @@ namespace Nusje2000\Socket\Frame;
 final class Frame implements FrameInterface
 {
     /**
-     * @var int
+     * @var OpcodeEnum
      */
     private $opcode;
 
@@ -34,16 +34,16 @@ final class Frame implements FrameInterface
     /**
      * Frame constructor.
      *
-     * @param bool   $finalFragment
-     * @param int    $opcode
-     * @param string $payload
-     * @param string $maskingKey
+     * @param bool       $finalFragment
+     * @param OpcodeEnum $opcode
+     * @param string     $payload
+     * @param string     $maskingKey
      */
     public function __construct(
         bool $finalFragment,
-        int $opcode,
+        OpcodeEnum $opcode,
         string $payload,
-        ?string $maskingKey
+        ?string $maskingKey = null
     ) {
         $this->opcode = $opcode;
         $this->payload = $payload;
@@ -51,25 +51,16 @@ final class Frame implements FrameInterface
         $this->finalFragment = $finalFragment;
     }
 
-    /**
-     * @return int
-     */
-    public function getOpcode(): int
+    public function getOpcode(): OpcodeEnum
     {
         return $this->opcode;
     }
 
-    /**
-     * @return string
-     */
     public function getPayload(): string
     {
         return $this->payload;
     }
 
-    /**
-     * @return int
-     */
     public function getPayloadLenth(): int
     {
         if (null === $this->payload) {
@@ -79,49 +70,31 @@ final class Frame implements FrameInterface
         return strlen($this->payload);
     }
 
-    /**
-     * @return string
-     */
     public function getMaskingKey(): ?string
     {
         return $this->maskingKey;
     }
 
-    /**
-     * @return bool
-     */
     public function isClosing(): bool
     {
         return OpcodeEnum::CLOSE === $this->opcode;
     }
 
-    /**
-     * @return bool
-     */
     public function isFinal(): bool
     {
         return $this->finalFragment;
     }
 
-    /**
-     * @return bool
-     */
     public function isMasked(): bool
     {
         return null !== $this->maskingKey;
     }
 
-    /**
-     * @return bool
-     */
     public function isControl(): bool
     {
         return OpcodeEnum::isControlCode($this->opcode);
     }
 
-    /**
-     * @return bool
-     */
     public function isNonControl(): bool
     {
         return OpcodeEnum::isNonControlCode($this->opcode);

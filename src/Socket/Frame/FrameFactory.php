@@ -14,19 +14,6 @@ use RuntimeException;
 final class FrameFactory
 {
     /**
-     * @param bool   $final
-     * @param int    $opcode
-     * @param string $payload
-     * @param string $mask
-     *
-     * @return Frame
-     */
-    public function createFrame(bool $final, int $opcode, string $payload, ?string $mask = null): Frame
-    {
-        return new Frame($final, $opcode, $payload, $mask);
-    }
-
-    /**
      * @param string $data
      *
      * @return Frame
@@ -48,7 +35,7 @@ final class FrameFactory
             throw new RuntimeException('Payload lenth does not equal specified lenth.');
         }
 
-        return $this->createFrame($final, $opcode, $payload, $mask);
+        return new Frame($final, new OpcodeEnum($opcode), $payload, $mask);
     }
 
     /**

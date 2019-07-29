@@ -4,64 +4,75 @@ declare(strict_types=1);
 
 namespace Nusje2000\Socket\Logger;
 
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Psr\Log\LoggerInterface;
 
 /**
- * Class ConsoleLogger
- *
- * @package Nusje2000\Socket\Logger
+ * @internal
  */
-class ConsoleLogger implements LoggerInterface
+final class ConsoleLogger implements LoggerInterface
 {
-    /**
-     * @var ConsoleOutput
-     */
-    protected $output;
-
-    /**
-     * ConsoleLogger constructor.
-     */
-    public function __construct()
+    public function emergency($message, array $context = []): void
     {
-        $this->output = new ConsoleOutput();
-        $outputStyle = new OutputFormatterStyle('red');
-        $this->output->getFormatter()->setStyle('warning', $outputStyle);
-        $outputStyle = new OutputFormatterStyle('cyan');
-        $this->output->getFormatter()->setStyle('info', $outputStyle);
-        $outputStyle = new OutputFormatterStyle('green');
-        $this->output->getFormatter()->setStyle('notice', $outputStyle);
-        $outputStyle = new OutputFormatterStyle(null, null, ['bold']);
-        $this->output->getFormatter()->setStyle('timestamp', $outputStyle);
+        $this->writeToConsole(sprintf('EMERGENCY: %s', $message), $context);
     }
 
-    /**
-     * @param string $message
-     */
-    public function info(string $message): void
+    public function alert($message, array $context = []): void
     {
-        $this->output->writeln(
-            sprintf('<timestamp>[%s]</timestamp><info> INFO: %s</info>', date('Y-m-d H:i:s'), $message)
-        );
+        $this->writeToConsole(sprintf('ALERT: %s', $message), $context);
     }
 
-    /**
-     * @param string $message
-     */
-    public function notice(string $message): void
+    public function critical($message, array $context = []): void
     {
-        $this->output->writeln(
-            sprintf('<timestamp>[%s]</timestamp><notice> NOTICE: %s</notice>', date('Y-m-d H:i:s'), $message)
-        );
+        $this->writeToConsole(sprintf('CRITICAL: %s', $message), $context);
     }
 
-    /**
-     * @param string $message
-     */
-    public function warning(string $message): void
+    public function error($message, array $context = []): void
     {
-        $this->output->writeln(
-            sprintf('<timestamp>[%s]</timestamp><warning> WARNING: %s</warning>', date('Y-m-d H:i:s'), $message)
-        );
+        $this->writeToConsole(sprintf('ERROR: %s', $message), $context);
+    }
+
+    public function warning($message, array $context = []): void
+    {
+        $this->writeToConsole(sprintf('WARNING: %s', $message), $context);
+    }
+
+    public function notice($message, array $context = []): void
+    {
+        $this->writeToConsole(sprintf('NOTICE: %s', $message), $context);
+    }
+
+    public function info($message, array $context = []): void
+    {
+        $this->writeToConsole(sprintf('INFO: %s', $message), $context);
+    }
+
+    public function debug($message, array $context = []): void
+    {
+        $this->writeToConsole(sprintf('DEBUG: %s', $message), $context);
+    }
+
+    public function log($level, $message, array $context = []): void
+    {
+        $this->writeToConsole(sprintf('LOG: %s', $message), $context);
+    }
+
+    private function writeToConsole(string $message, array $context): void
+    {
+        echo sprintf('%s %s', $message, $this->createContextString($context)), PHP_EOL;
+    }
+
+    private function createContextString(array $context): string
+    {
+        $parts = [];
+
+        foreach ($context as $key => $value) {
+            $parts[] = sprintf('%s: %s', $key, print_r($value, true));
+        }
+
+        if (empty($parts)) {
+            return '';
+        }
+
+        return sprintf('[%s]', implode($parts, ', '));
     }
 }

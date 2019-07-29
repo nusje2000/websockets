@@ -28,7 +28,8 @@ class OpcodeEnumTest extends TestCase
      */
     public function testIsControlCode(int $code, bool $expect): void
     {
-        self::assertEquals($expect, OpcodeEnum::isControlCode($code));
+        $opcode = new OpcodeEnum($code);
+        self::assertEquals($expect, $opcode->isControlCode());
     }
 
     /**
@@ -43,7 +44,8 @@ class OpcodeEnumTest extends TestCase
      */
     public function testIsNonControlCode(int $code, bool $expect): void
     {
-        self::assertEquals($expect, OpcodeEnum::isNonControlCode($code));
+        $opcode = new OpcodeEnum($code);
+        self::assertEquals($expect, $opcode->isNonControlCode());
     }
 
     /**
@@ -67,7 +69,6 @@ class OpcodeEnumTest extends TestCase
     public function controlCodeProvider(): array
     {
         return [
-            [-1, false],
             [0, true],
             [1, false],
             [2, false],
@@ -84,8 +85,6 @@ class OpcodeEnumTest extends TestCase
             [13, true],
             [14, true],
             [15, true],
-            [20, false],
-            [100, false],
         ];
     }
 
@@ -95,7 +94,6 @@ class OpcodeEnumTest extends TestCase
     public function nonControlCodeProvider(): array
     {
         return [
-            [-1, false],
             [0, false],
             [1, true],
             [2, true],
@@ -112,8 +110,6 @@ class OpcodeEnumTest extends TestCase
             [13, false],
             [14, false],
             [15, false],
-            [20, false],
-            [100, false],
         ];
     }
 

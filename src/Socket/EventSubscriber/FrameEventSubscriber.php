@@ -6,7 +6,6 @@ namespace Nusje2000\Socket\EventSubscriber;
 
 use Nusje2000\Socket\Event\FrameEvent;
 use Nusje2000\Socket\Event\MessageEvent;
-use Nusje2000\Socket\Event\SocketEventInterface;
 use Nusje2000\Socket\Frame\OpcodeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,14 +33,12 @@ final class FrameEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public static function getSubscribedEvents(): array
     {
         return [
-            SocketEventInterface::EVENT_RECEIVE_FRAME => [
-                ['receiveFrame'],
-            ],
+            FrameEvent::class => ['receiveFrame'],
         ];
     }
 
@@ -52,21 +49,17 @@ final class FrameEventSubscriber implements EventSubscriberInterface
      */
     public function receiveFrame(FrameEvent $event): void
     {
-        $socket = $event->getSocket();
-        $connection = $event->getConnection();
         $frame = $event->getFrame();
 
-        if ($frame->getOpcode() !== OpcodeEnum::TEXT) {
+        if (!$frame->getOpcode()->equals(new OpcodeEnum(OpcodeEnum::TEXT))) {
             return;
         }
 
         $message = $frame->getPayload();
 
         if (null !== $message) {
-            $this->dispatcher->dispatch(
-                SocketEventInterface::EVENT_RECEIVE_MESSAGE,
-                new MessageEvent($socket, $connection, $frame, $message)
-            );
+            $messageEvent = new MessageEvent($event->getSocket(), $event->getConnection(), $message);
+            $this->dispatcher->dispatch($messageEvent);
         }
     }
 }

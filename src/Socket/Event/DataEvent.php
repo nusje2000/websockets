@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Nusje2000\Socket\Event;
 
 use Nusje2000\Socket\Connection\SocketConnectionInterface;
-use Nusje2000\Socket\Frame\FrameInterface;
 use Nusje2000\Socket\WebSocketInterface;
 
-final class FrameEvent extends AbstractSocketEvent implements ConnectionAwareEvent
+final class DataEvent extends AbstractSocketEvent implements ConnectionAwareEvent
 {
     /**
      * @var SocketConnectionInterface
@@ -16,33 +15,27 @@ final class FrameEvent extends AbstractSocketEvent implements ConnectionAwareEve
     private $connection;
 
     /**
-     * @var FrameInterface
+     * @var string
      */
-    private $frame;
+    private $data;
 
     public function __construct(
         WebSocketInterface $socket,
         SocketConnectionInterface $connection,
-        FrameInterface $frame
+        string $data
     ) {
         parent::__construct($socket);
-        $this->frame = $frame;
         $this->connection = $connection;
+        $this->data = $data;
     }
 
-    /**
-     * @return SocketConnectionInterface
-     */
     public function getConnection(): SocketConnectionInterface
     {
         return $this->connection;
     }
 
-    /**
-     * @return FrameInterface
-     */
-    public function getFrame(): FrameInterface
+    public function getData(): string
     {
-        return $this->frame;
+        return $this->data;
     }
 }

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nusje2000\Socket\Handler;
 
 use Nusje2000\Socket\Handshake\HandshakeFactory;
-use Nusje2000\Socket\Logger\LoggerInterface;
-use Nusje2000\Socket\Logger\NullLogger;
 use Nusje2000\Socket\WebSocketInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use React\Socket\ConnectionInterface;
 use RuntimeException;
 

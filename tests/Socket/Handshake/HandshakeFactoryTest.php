@@ -43,10 +43,10 @@ class HandshakeFactoryTest extends TestCase
         string $exception = null
     ): void {
         $responseHttp = null;
-        $requestHttp = file_get_contents(__DIR__.'/../../Resources/handshake/'.$request);
+        $requestHttp = file_get_contents(__DIR__ . '/../../Resources/handshake/' . $request);
 
         if (null !== $response) {
-            $responseHttp = file_get_contents(__DIR__.'/../../Resources/handshake/'.$response);
+            $responseHttp = file_get_contents(__DIR__ . '/../../Resources/handshake/' . $response);
         }
 
         if (null !== $exception) {

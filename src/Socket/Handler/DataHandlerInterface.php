@@ -14,16 +14,12 @@ use Nusje2000\Socket\Frame\FrameInterface;
 interface DataHandlerInterface
 {
     /**
-     * @param string $data
-     *
-     * @return FrameInterface
+     * Converts raw message into Frame object
      */
     public function convertToFrame(string $data): FrameInterface;
 
     /**
-     * @param FrameInterface $frame
-     *
-     * @return string
+     * Converts Frame object into raw message
      */
     public function convertToString(FrameInterface $frame): string;
 }
