@@ -6,81 +6,55 @@ namespace Nusje2000\Socket;
 
 use Nusje2000\Socket\Connection\SocketConnection;
 use Nusje2000\Socket\Connection\SocketConnectionCollection;
-use Nusje2000\Socket\Event\ConnectEvent;
-use Nusje2000\Socket\Frame\Encoder;
-use Nusje2000\Socket\Frame\FrameFactory;
-use Nusje2000\Socket\Handler\DataHandler;
-use Nusje2000\Socket\Handler\DataHandlerInterface;
-use Nusje2000\Socket\Handler\HandshakeHandler;
-use Nusje2000\Socket\Handler\HandshakeHandlerInterface;
-use Nusje2000\Socket\Handshake\HandshakeFactory;
-use Psr\Log\LoggerInterface;
+use Nusje2000\Socket\Event\HandshakeEvent;
 use React\EventLoop\LoopInterface;
 use React\Socket\ConnectionInterface;
 use React\Socket\Server;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class WebSocket implements WebSocketInterface
+final class WebSocket implements WebSocketInterface
 {
-    /**
-     * @var Server
-     */
-    protected $socket;
-
     /**
      * @var string
      */
-    protected $host;
+    private $host;
 
     /**
      * @var int
      */
-    protected $port;
+    private $port;
 
     /**
      * @var SocketConnectionCollection
      */
-    protected $connections;
+    private $connections;
 
     /**
      * @var LoopInterface
      */
-    protected $loop;
+    private $loop;
 
     /**
      * @var EventDispatcherInterface
      */
-    protected $dispatcher;
-
-    /**
-     * @var HandshakeHandlerInterface
-     */
-    protected $handshakeHandler;
-
-    /**
-     * @var DataHandlerInterface
-     */
-    protected $dataHandler;
+    private $dispatcher;
 
     public function __construct(
         LoopInterface $loop,
         string $host,
         int $port,
-        EventDispatcherInterface $dispatcher,
-        ?LoggerInterface $logger = null
+        EventDispatcherInterface $dispatcher
     ) {
         $this->host = $host;
         $this->port = $port;
         $this->loop = $loop;
         $this->dispatcher = $dispatcher;
 
-        $this->socket = new Server(sprintf('%s:%s', $host, $port), $loop);
         $this->connections = new SocketConnectionCollection();
-        $this->handshakeHandler = new HandshakeHandler(new HandshakeFactory(), $logger);
-        $this->dataHandler = new DataHandler(new FrameFactory(), new Encoder());
+        $server = new Server(sprintf('%s:%s', $host, $port), $loop);
 
-        $this->socket->on('connection', function (ConnectionInterface $connection) {
-            $this->onConnection($connection);
+        $server->on('connection', function (ConnectionInterface $connection) {
+            $this->handleConnection($connection);
         });
     }
 
@@ -109,22 +83,12 @@ class WebSocket implements WebSocketInterface
         return $this->loop;
     }
 
-    protected function onConnection(ConnectionInterface $connection): void
+    private function handleConnection(ConnectionInterface $baseConnection): void
     {
+        $connection = new SocketConnection($baseConnection);
+
         $connection->once('data', function (string $request) use ($connection) {
-            $completed = $this->handshakeHandler->handshake($this, $connection, $request);
-
-            if ($completed) {
-                $this->onHandshake($connection);
-            }
+            $this->dispatcher->dispatch(new HandshakeEvent($this, $connection, $request));
         });
-    }
-
-    protected function onHandshake(ConnectionInterface $connection): void
-    {
-        $webSocketConnection = new SocketConnection($connection);
-        $this->connections->append($webSocketConnection);
-
-        $this->dispatcher->dispatch(new ConnectEvent($this, $webSocketConnection));
     }
 }

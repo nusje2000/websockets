@@ -1,5 +1,6 @@
-<html>
+<html lang="en">
 <head>
+    <title>Socket example!</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>

@@ -78,25 +78,27 @@ can be listened to:
 
 | Event class     | Reason                                                                                                                                        |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| HandshakeEvent  | first data sent over a new connection will be treated as handshake request                                                                    |
 | ConnectEvent    | new connection (handshake is already done when this event is triggered)                                                                       |
 | DataEvent       | received data (triggered when data is received)                                                                                               |
 | FrameEvent      | received frame (triggered when a frame is received)                                                                                           |
 | MessageEvent    | received message (only works when the FrameEventSubscriber is an active listener, triggered when a frame is received with TEXT opcode)        |
 | DisconnectEvent | disconnected (triggered when a connection is disconned)                                                                                       |
 
-For all events to be dispatched there are 3 event dispatchers. The following is a list of the dispatchters and their in-/outgoning events:
+For all events to be dispatched there are 4 event dispatchers. The following is a list of the dispatchters and their in-/outgoning events:
 
-| Dispatcher                    | Incomming events  | Outgoing events            | Purpose                                                                         |
-|-------------------------------|-------------------|----------------------------|---------------------------------------------------------------------------------|
-| ConnectionEventSubscriber     | ConnectEvent      | DataEvent, DisconnectEvent | Handle connection and map connection events                                     |
-| DataEventSubscriber           | DataEvent         | FrameEvent                 | Parse incomming data to a frame and dispatch as frame event                     |
-| FrameEventSubscriber          | FrameEvent        | MessageEvent               | Handle incomming frame event and dispatch a Message event if the opcode is TEXT |
+| Dispatcher                    | Incomming events              | Outgoing events            | Purpose                                                                         |
+|-------------------------------|-------------------------------|----------------------------|---------------------------------------------------------------------------------|
+| HandshakeEventSubscriber      | HandshakeEvent                | ConnectEvent               | Handle handshake and dispatch a connect event when successfull                  |
+| ConnectionEventSubscriber     | ConnectEvent, DisconnectEvent | DataEvent, DisconnectEvent | Handle connection and map connection events                                     |
+| DataEventSubscriber           | DataEvent                     | FrameEvent                 | Parse incomming data to a frame and dispatch as frame event                     |
+| FrameEventSubscriber          | FrameEvent                    | MessageEvent               | Handle incomming frame event and dispatch a Message event if the opcode is TEXT |
 
 ### Running the example
 There is a simple chat application included in this project. To run this, use the following commands:
 ```bash
-php bin/example.php
-php -S 127.0.0.1:8080 -t ./web
+php example/socket.php
+php -S 127.0.0.1:8080 -t ./example/web
 ```
 __You must run both commands separate from each other__
 

@@ -6,7 +6,8 @@ namespace Nusje2000\Socket\EventSubscriber;
 
 use Nusje2000\Socket\Event\FrameEvent;
 use Nusje2000\Socket\Event\MessageEvent;
-use Nusje2000\Socket\Frame\OpcodeEnum;
+
+use Nusje2000\Socket\Enum\OpcodeEnum;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,11 +23,6 @@ final class FrameEventSubscriber implements EventSubscriberInterface
      */
     private $dispatcher;
 
-    /**
-     * SocketEventSubscriber constructor.
-     *
-     * @param EventDispatcherInterface $dispatcher
-     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;

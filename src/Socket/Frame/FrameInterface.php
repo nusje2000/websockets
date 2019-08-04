@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nusje2000\Socket\Frame;
 
+use Nusje2000\Socket\Enum\OpcodeEnum;
+
 /**
  * Interface FrameInterface
  *
@@ -24,6 +26,4 @@ interface FrameInterface
     public function isMasked(): bool;
 
     public function isClosing(): bool;
-
-    public function isControl(): bool;
 }

@@ -29,6 +29,7 @@ final class ConnectionEventSubscriber implements EventSubscriberInterface
     {
         return [
             ConnectEvent::class => ['handleConnection'],
+            DisconnectEvent::class => ['handleDisconnect'],
         ];
     }
 
@@ -36,6 +37,8 @@ final class ConnectionEventSubscriber implements EventSubscriberInterface
     {
         $socket = $event->getSocket();
         $connection = $event->getConnection();
+
+        $socket->getConnections()->append($connection);
 
         $connection->on('data', function (string $data) use ($socket, $connection) {
             $this->dispatcher->dispatch(new DataEvent($socket, $connection, $data));
@@ -48,5 +51,15 @@ final class ConnectionEventSubscriber implements EventSubscriberInterface
         $connection->on('end', function () use ($socket, $connection) {
             $this->dispatcher->dispatch(new DisconnectEvent($socket, $connection));
         });
+    }
+
+    public function handleDisconnect(DisconnectEvent $event): void
+    {
+        $connections = $event->getSocket()->getConnections();
+        $connection = $event->getConnection();
+
+        if ($connections->contains($connection)) {
+            $connections->remove($connection);
+        }
     }
 }

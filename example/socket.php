@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
+use Nusje2000\Socket\Enum\OpcodeEnum;
 use Nusje2000\Socket\Event\MessageEvent;
 use Nusje2000\Socket\EventSubscriber\ConnectionEventSubscriber;
 use Nusje2000\Socket\EventSubscriber\DataEventSubscriber;
 use Nusje2000\Socket\EventSubscriber\DebugEventSubscriber;
 use Nusje2000\Socket\EventSubscriber\FrameEventSubscriber;
-use Nusje2000\Socket\Frame\Encoder;
+use Nusje2000\Socket\EventSubscriber\HandshakeEventSubscriber;
 use Nusje2000\Socket\Frame\Frame;
-use Nusje2000\Socket\Frame\FrameFactory;
-use Nusje2000\Socket\Frame\OpcodeEnum;
-use Nusje2000\Socket\Handler\DataHandler;
-use Nusje2000\Socket\Logger\ConsoleLogger;
+use Nusje2000\Socket\Handler\FrameTransformer;
+use Nusje2000\Socket\Handshake\HandshakeHandler;
+use Nusje2000\Socket\Logger\DebugLogger;
 use Nusje2000\Socket\WebSocket;
 use React\EventLoop\Factory as LoopFactory;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -32,36 +32,36 @@ if (function_exists('pcntl_signal')) {
 }
 
 $dispatcher = new EventDispatcher();
-$dataHandler = new DataHandler(new FrameFactory(), new Encoder());
+$frameTransformer = new FrameTransformer();
+$logger = new DebugLogger();
 
+$dispatcher->addSubscriber(new HandshakeEventSubscriber($dispatcher, new HandshakeHandler()));
 $dispatcher->addSubscriber(new ConnectionEventSubscriber($dispatcher));
-$dispatcher->addSubscriber(new DataEventSubscriber($dispatcher, $dataHandler));
+$dispatcher->addSubscriber(new DataEventSubscriber($dispatcher, $frameTransformer));
 $dispatcher->addSubscriber(new FrameEventSubscriber($dispatcher));
+$dispatcher->addSubscriber(new DebugEventSubscriber($logger));
 
 $dispatcher->addListener(
     MessageEvent::class,
-    function (MessageEvent $event) use ($dataHandler) {
+    function (MessageEvent $event) use ($frameTransformer) {
         $socket = $event->getSocket();
         $connection = $event->getConnection();
         $message = $event->getMessage();
 
         foreach ($socket->getConnections() as $target) {
-            $patern = $target === $connection ? 'you: %s' : 'stranger: %s';
-            $raw = $dataHandler->convertToString(new Frame(
+            $raw = $frameTransformer->transformToString(new Frame(
                 true,
                 new OpcodeEnum(OpcodeEnum::TEXT),
-                sprintf($patern, $message)
+                sprintf($target === $connection ? 'you: %s' : 'stranger: %s', $message)
             ));
+
             $target->write($raw);
         }
     }
 );
 
-$logger = new ConsoleLogger();
-$dispatcher->addSubscriber(new DebugEventSubscriber($logger));
-
 try {
-    new WebSocket($loop, '127.0.0.1', 8001, $dispatcher, $logger);
+    new WebSocket($loop, '127.0.0.1', 8001, $dispatcher);
 
     $loop->futureTick(function () use ($logger) {
         $logger->info('Socket is running.');

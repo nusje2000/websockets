@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nusje2000\Socket\Frame;
 
+use Nusje2000\Socket\Enum\OpcodeEnum;
+
 /**
  * Class Frame
  *
@@ -77,7 +79,7 @@ final class Frame implements FrameInterface
 
     public function isClosing(): bool
     {
-        return OpcodeEnum::CLOSE === $this->opcode;
+        return $this->opcode->equals(new OpcodeEnum(OpcodeEnum::CLOSE));
     }
 
     public function isFinal(): bool
@@ -88,15 +90,5 @@ final class Frame implements FrameInterface
     public function isMasked(): bool
     {
         return null !== $this->maskingKey;
-    }
-
-    public function isControl(): bool
-    {
-        return OpcodeEnum::isControlCode($this->opcode);
-    }
-
-    public function isNonControl(): bool
-    {
-        return OpcodeEnum::isNonControlCode($this->opcode);
     }
 }

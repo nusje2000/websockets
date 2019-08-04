@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nusje2000\Socket\Frame;
+namespace Nusje2000\Socket\Enum;
 
 use MyCLabs\Enum\Enum;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Nusje2000\Socket\Handshake;
 
+use Nusje2000\Socket\Exception\HandshakeException;
 use Nusje2000\Socket\Handshake\HandshakeFactory;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
@@ -65,7 +66,7 @@ class HandshakeFactoryTest extends TestCase
         return [
             ['127.0.0.1', 1337, 'request_1.http', 'response_1.http'],
             ['some-host', 8000, 'request_2.http', 'response_2.http'],
-            ['127.0.0.1', 1337, 'request_3.http', null, RuntimeException::class],
+            ['127.0.0.1', 1337, 'request_3.http', null, HandshakeException::class],
         ];
     }
 

@@ -9,6 +9,7 @@ use Nusje2000\Socket\Event\ConnectionAwareEvent;
 use Nusje2000\Socket\Event\DataEvent;
 use Nusje2000\Socket\Event\DisconnectEvent;
 use Nusje2000\Socket\Event\FrameEvent;
+use Nusje2000\Socket\Event\HandshakeEvent;
 use Nusje2000\Socket\Event\MessageEvent;
 use Nusje2000\Socket\Event\SocketEventInterface;
 use Psr\Log\LoggerInterface;
@@ -24,6 +25,9 @@ final class DebugEventSubscriber implements EventSubscriberInterface
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
+        $this->logger->warning(
+            sprintf('%s is for debugging only, make sure to not use this in a production environment.', __CLASS__)
+        );
     }
 
     /**
@@ -32,6 +36,7 @@ final class DebugEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            HandshakeEvent::class => ['logEvent', 255],
             ConnectEvent::class => ['logEvent', 255],
             DisconnectEvent::class => ['logEvent', 255],
             MessageEvent::class => ['logEvent', 255],

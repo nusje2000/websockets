@@ -7,6 +7,8 @@ window.onkeypress = event => {
 };
 
 function startConnection() {
+    const retryTimeout = 1000;
+
     if (null !== socket) {
         socket.close();
     }
@@ -35,7 +37,7 @@ function startConnection() {
         document.getElementById('socket-errors').innerHTML = 'closed';
 
         if (null === timeout) {
-            timeout = setTimeout(startConnection, 1000);
+            timeout = setTimeout(startConnection, retryTimeout);
         }
     };
 
@@ -44,7 +46,7 @@ function startConnection() {
         document.getElementById('dashboard').style.display = 'none';
 
         if (null === timeout) {
-            timeout = setTimeout(startConnection, 1000);
+            timeout = setTimeout(startConnection, retryTimeout);
         }
     };
 

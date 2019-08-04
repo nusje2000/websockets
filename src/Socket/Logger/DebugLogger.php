@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 /**
  * @internal
  */
-final class ConsoleLogger implements LoggerInterface
+final class DebugLogger implements LoggerInterface
 {
     public function emergency($message, array $context = []): void
     {
